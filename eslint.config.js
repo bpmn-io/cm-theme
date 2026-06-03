@@ -12,7 +12,8 @@ const files = {
     'test/**/*.ts'
   ],
   ignored: [
-    'dist'
+    'dist',
+    'demo'
   ]
 };
 
