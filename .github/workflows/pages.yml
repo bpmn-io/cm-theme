@@ -3,7 +3,6 @@ name: Deploy demo
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   pages: write
