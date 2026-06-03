@@ -1,49 +1,79 @@
 {
   "name": "@bpmn-io/cm-theme",
   "version": "0.1.0-alpha.2",
-  "description": "Codemirror themes for bpmn-io",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "description": "A CodeMirror 6 syntax highlighting theme for FEEL expressions",
   "scripts": {
-    "build": "rollup -c",
-    "start": "npm run build && npm run --prefix preview-themes dev"
-  },
-  "author": {
-    "name": "Valentin Serra",
-    "url": "https://github.com/skaiir"
+    "all": "run-s lint build build:example test",
+    "test": "karma start karma.conf.cjs",
+    "start": "SINGLE_START=1 npm run dev",
+    "dev": "run-p 'build -- watch' 'test -- --no-single-run --auto-watch'",
+    "lint": "eslint .",
+    "build": "microbundle -f modern --target node",
+    "build:example": "vite build --config vite.config.example.js",
+    "prepare": "npm run build"
   },
   "keywords": [
     "codemirror",
-    "cm",
+    "feel",
     "theme",
-    "bpmn-io"
+    "syntax-highlighting"
   ],
-  "files": [
-    "dist"
-  ],
+  "author": "bpmn.io contributors",
+  "type": "module",
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
   "license": "MIT",
   "dependencies": {
-    "@codemirror/language": "^6.3.1",
-    "@codemirror/view": "^6.5.1",
-    "@lezer/highlight": "^1.1.4"
+    "@codemirror/language": "^6.12.3",
+    "@lezer/highlight": "^1.2.3"
+  },
+  "peerDependencies": {
+    "@codemirror/state": "^6.0.0",
+    "@codemirror/view": "^6.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.20.7",
-    "@babel/core": "^7.20.12",
-    "@babel/preset-env": "^7.20.2",
-    "@babel/register": "^7.18.9",
-    "@lezer/generator": "^1.2.2",
-    "@rollup/plugin-commonjs": "^24.0.1",
-    "@rollup/plugin-json": "^6.0.0",
-    "chai": "^4.3.7",
-    "cross-env": "^7.0.3",
-    "eslint": "^8.33.0",
-    "eslint-plugin-bpmn-io": "^1.0.0",
-    "rollup": "^3.15.0"
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/state": "^6.6.0",
+    "@codemirror/view": "^6.43.0",
+    "@types/chai": "^5.2.3",
+    "@types/karma-mocha": "^1.3.4",
+    "@types/mocha": "^10.0.10",
+    "chai": "^6.2.2",
+    "codemirror": "^6.0.2",
+    "eslint": "^9.39.4",
+    "eslint-plugin-bpmn-io": "^2.3.0",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher-2": "^3.3.0",
+    "karma-debug-launcher": "^0.0.5",
+    "karma-env-preprocessor": "^0.1.1",
+    "karma-firefox-launcher": "^2.1.3",
+    "karma-mocha": "^2.0.1",
+    "karma-webpack": "^5.0.1",
+    "lang-feel": "^4.0.0",
+    "microbundle": "^0.15.1",
+    "mocha": "^11.7.6",
+    "npm-run-all2": "^9.0.1",
+    "puppeteer": "^25.1.0",
+    "ts-loader": "^9.6.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.60.1",
+    "vite": "^8.0.16",
+    "webpack": "^5.107.2"
   },
-  "workspaces": {
-    "packages": [
-      "preview-themes"
-    ]
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpmn-io/cm-theme.git"
+  },
+  "engines": {
+    "node": ">= 20.12.0"
+  },
+  "files": [
+    "dist"
+  ]
 }

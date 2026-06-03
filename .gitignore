@@ -1,6 +1,6 @@
-node_modules
-dist
-
-preview-themes/node_modules
-preview-themes/build
-preview-themes/*.log
+/node_modules
+/dist
+/demo/
+/test/*.js
+/test/*.d.ts
+/test/*.d.ts.map
