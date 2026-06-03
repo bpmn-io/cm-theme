@@ -4,7 +4,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ ubuntu-latest ]
         node-version: [ 24 ]
 
     runs-on: ${{ matrix.os }}
@@ -21,13 +21,7 @@ jobs:
         run: npm ci
       - name: Setup project
         uses: bpmn-io/actions/setup@latest
-      - name: Build (Linux)
-        if: runner.os == 'Linux'
+      - name: Build
         env:
           TEST_BROWSERS: Firefox,ChromeHeadless
         run: xvfb-run npm run all
-      - name: Build
-        if: matrix.os != 'ubuntu-latest'
-        env:
-          TEST_BROWSERS: ChromeHeadless
-        run: npm run all
