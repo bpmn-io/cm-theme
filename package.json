@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.2",
   "description": "A CodeMirror 6 syntax highlighting theme for FEEL expressions",
   "scripts": {
-    "all": "run-s lint build test",
+    "all": "run-s lint build build:example test",
     "test": "karma start karma.conf.cjs",
     "start": "SINGLE_START=1 npm run dev",
     "dev": "run-p 'build -- watch' 'test -- --no-single-run --auto-watch'",
