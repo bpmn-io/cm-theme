@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to [feelers](https://github.com/bpmn-io/feelers) are documented here. We use [semantic versioning](http://semver.org/) for releases.
+All notable changes to [@bpmn-io/cm-theme](https://github.com/bpmn-io/cm-theme) are documented here. We use [semantic versioning](http://semver.org/) for releases.
 
 ## Unreleased
 
