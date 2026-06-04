@@ -33,10 +33,30 @@
       padding: 6px 12px;
       cursor: pointer;
     }
+
+    a {
+      color: #0969da;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #1e1e1e;
+        color: #ccc;
+      }
+
+      a {
+        color: #58a6ff;
+      }
+
+      .editor {
+        border-color: #444;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>@bpmn-io/cm-theme</h1>
+  <p><a href="https://github.com/bpmn-io/cm-theme">View on GitHub</a></p>
   <button id="toggle">Toggle dark</button>
 
   <label>FEEL</label>
