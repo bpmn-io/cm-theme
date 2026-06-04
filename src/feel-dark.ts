@@ -12,8 +12,8 @@ export const feelDark = createTheme({
     { tag: t.bool, color: '#f47067' },
     { tag: t.null, color: '#f47067' },
 
-    { tag: t.propertyName, color: '#f69d50' },
-    { tag: t.definition(t.propertyName), color: '#f69d50' },
+    { tag: t.propertyName, color: '#adbac7' },
+    { tag: t.definition(t.propertyName), color: '#adbac7' },
     { tag: t.string, color: '#96d0ff' },
     { tag: t.special(t.string), color: '#96d0ff' },
     { tag: t.number, color: '#6bc46d' },
