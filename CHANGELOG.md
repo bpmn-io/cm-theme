@@ -6,11 +6,13 @@ All notable changes to [feelers](https://github.com/bpmn-io/feelers) are documen
 
 ___Note:__ Yet to be released changes appear here._
 
-`feat`: update theme with new colors and setup
+## 0.2.0
+
+- `FEAT`: update theme with new colors and setup ([#5](https://github.com/bpmn-io/cm-theme/pull/5))
 
 ## 0.1.0-alpha.2
 
-`fix`: improved light mode colors and contrast
+- `FIX`: improved light mode colors and contrast
 
 ## 0.1.0-alpha.0
 
