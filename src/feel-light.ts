@@ -12,8 +12,8 @@ export const feelLight = createTheme({
     { tag: t.bool, color: '#a31515' },
     { tag: t.null, color: '#a31515' },
 
-    { tag: t.propertyName, color: '#9a6700' },
-    { tag: t.definition(t.propertyName), color: '#9a6700' },
+    { tag: t.propertyName, color: '#24292f' },
+    { tag: t.definition(t.propertyName), color: '#24292f' },
     { tag: t.string, color: '#0a3069' },
     { tag: t.special(t.string), color: '#0a3069' },
     { tag: t.number, color: '#06704a' },
