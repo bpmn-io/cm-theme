@@ -2,6 +2,8 @@
 
 The [CM theme](https://github.com/bpmn-io/cm-theme) for the [CodeMirror code editor](https://codemirror.net/).
 
+[Try it out](https://bpmn-io.github.io/cm-theme/).
+
 
 ## Usage
 
