@@ -1,6 +1,6 @@
 {
   "name": "@bpmn-io/cm-theme",
-  "version": "0.1.0-alpha.2",
+  "version": "0.2.0",
   "description": "A CodeMirror 6 syntax highlighting theme for FEEL expressions",
   "scripts": {
     "all": "run-s lint build build:example test",
