@@ -17,7 +17,25 @@ const createTheme = ({ variant, settings, styles } : {
     '&': {
       backgroundColor: settings.background,
       color: settings.foreground,
-    }
+    },
+    '& .cm-lintRange': {
+      position: 'relative',
+    },
+    '& .cm-lintRange::after': {
+      content: '""',
+      width: '100%',
+      position: 'absolute',
+      left: '0px',
+      bottom: '-2px',
+      height: '3px',
+      backgroundRepeat: 'repeat-x',
+    },
+    '& .cm-lintRange.cm-lintRange-warning, & .cm-lintRange.cm-lintRange-error': {
+      backgroundImage: 'none',
+    },
+    '& .cm-lintPoint::after': {
+      bottom: '-2px',
+    },
   }, {
     dark: variant === 'dark',
   });
