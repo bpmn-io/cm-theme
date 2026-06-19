@@ -6,6 +6,8 @@ export const feelLight = createTheme({
   settings: {
     background: '#ffffff',
     foreground: '#24292f',
+    warning: '#debd71',
+    error: '#9f1c15',
   },
   styles: [
 
