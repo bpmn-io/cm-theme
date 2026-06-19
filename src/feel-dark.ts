@@ -6,6 +6,8 @@ export const feelDark = createTheme({
   settings: {
     background: '#1c2128',
     foreground: '#adbac7',
+    warning: '#fff890',
+    error: '#ff0000',
   },
   styles: [
 
