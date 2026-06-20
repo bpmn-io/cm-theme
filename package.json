@@ -59,7 +59,7 @@
     "lang-feel": "^4.0.0",
     "microbundle": "^0.15.1",
     "mocha": "^11.7.6",
-    "npm-run-all2": "^9.0.1",
+    "npm-run-all2": "^9.0.2",
     "ts-loader": "^9.6.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.61.1",
