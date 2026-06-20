@@ -60,7 +60,7 @@
     "microbundle": "^0.15.1",
     "mocha": "^11.7.6",
     "npm-run-all2": "^9.0.2",
-    "ts-loader": "^9.6.0",
+    "ts-loader": "^9.6.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.61.1",
     "vite": "^8.0.16",
