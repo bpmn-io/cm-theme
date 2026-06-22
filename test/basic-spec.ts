@@ -6,6 +6,7 @@ import { basicSetup } from 'codemirror';
 
 import { EditorState, Compartment } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
+import { setDiagnostics } from '@codemirror/lint';
 
 import { feelLight, feelDark } from '@bpmn-io/cm-theme';
 
@@ -60,7 +61,7 @@ describe('cm-theme', function() {
   });
 
 
-  (singleStart ? it.only : it)('should highlight FEEL expressions', function() {
+  (singleStart ? it.only : it)('should highlight FEEL expressions and lint squiggles', function() {
 
     const feelCompartment = new Compartment();
     const jsonCompartment = new Compartment();
@@ -129,8 +130,22 @@ describe('cm-theme', function() {
 
     feelView.focus();
 
+    // surface lint squiggles (toggling the theme recolors them too)
+    const lintRange = (token: string) => {
+      const from = feelDoc.indexOf(token);
+      return { from, to: from + token.length };
+    };
+
+    feelView.dispatch(setDiagnostics(feelView.state, [
+      { ...lintRange('vegetables'), severity: 'warning', message: '"vegetables" is not defined in the context' },
+      { ...lintRange('asd'), severity: 'error', message: '"asd" is not defined in the context' }
+    ]));
+
+    const lintRanges = feelParent.querySelectorAll('.cm-lintRange');
+
     expect(feelView).to.exist;
     expect(jsonView).to.exist;
+    expect(lintRanges.length).to.be.greaterThan(0);
   });
 
 });
