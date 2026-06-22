@@ -25,26 +25,14 @@ const createTheme = ({ variant, settings, styles } : {
       backgroundColor: settings.background,
       color: settings.foreground,
     },
-    '& .cm-lintRange': {
-      position: 'relative',
-    },
-    '& .cm-lintRange.cm-lintRange-warning, & .cm-lintRange.cm-lintRange-error': {
-      backgroundImage: 'none',
-    },
-    '& .cm-lintRange::after': {
-      content: '""',
-      width: '100%',
-      position: 'absolute',
-      left: '0px',
-      bottom: '-2px',
-      height: '3px',
-      backgroundRepeat: 'repeat-x',
-    },
-    '& .cm-lintRange.cm-lintRange-warning::after': {
-      backgroundImage: squiggle(settings.warning),
-    },
-    '& .cm-lintRange.cm-lintRange-error::after': {
+
+    // recolor the lint squiggles to the theme palette; CodeMirror's
+    // baseTheme already supplies the squiggle geometry and positioning
+    '& .cm-lintRange-error': {
       backgroundImage: squiggle(settings.error),
+    },
+    '& .cm-lintRange-warning': {
+      backgroundImage: squiggle(settings.warning),
     },
   }, {
     dark: variant === 'dark',
