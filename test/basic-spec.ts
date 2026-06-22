@@ -2,6 +2,8 @@ import { expect } from 'chai';
 
 import { feel } from 'lang-feel';
 import { json } from '@codemirror/lang-json';
+import { markdown } from '@codemirror/lang-markdown';
+
 import { basicSetup } from 'codemirror';
 
 import { EditorState, Compartment } from '@codemirror/state';
@@ -47,6 +49,22 @@ const jsonDoc = JSON.stringify({
   count: null
 }, null, 2);
 
+const markdownDoc = `
+# Heading
+
+Some text! [yes](./yes.html) include *emphasis* and **bold** font.
+
+<small class="embedded-html-tag">HTML embedded</small>
+
+## Secondary Heading
+
+![Some image](./some-image.png)
+
+### Ternary Heading
+
+> With nice quote.
+`.trim();
+
 
 describe('cm-theme', function() {
 
@@ -65,6 +83,7 @@ describe('cm-theme', function() {
 
     const feelCompartment = new Compartment();
     const jsonCompartment = new Compartment();
+    const markdownCompartment = new Compartment();
 
     const feelLabel = document.createElement('strong');
     feelLabel.textContent = 'FEEL';
@@ -78,12 +97,21 @@ describe('cm-theme', function() {
     jsonLabel.setAttribute('style', 'display: block; margin-bottom: 4px');
 
     const jsonParent = document.createElement('div');
-    jsonParent.setAttribute('style', 'border: solid 1px #CCC');
+    jsonParent.setAttribute('style', 'border: solid 1px #CCC; margin-bottom: 16px');
+
+    const markdownLabel = document.createElement('strong');
+    markdownLabel.textContent = 'MARKDOWN';
+    markdownLabel.setAttribute('style', 'display: block; margin-bottom: 4px');
+
+    const markdownParent = document.createElement('div');
+    markdownParent.setAttribute('style', 'border: solid 1px #CCC');
 
     container.appendChild(feelLabel);
     container.appendChild(feelParent);
     container.appendChild(jsonLabel);
     container.appendChild(jsonParent);
+    container.appendChild(markdownLabel);
+    container.appendChild(markdownParent);
 
     const feelView = new EditorView({
       state: EditorState.create({
@@ -109,6 +137,18 @@ describe('cm-theme', function() {
       parent: jsonParent
     });
 
+    const markdownView = new EditorView({
+      state: EditorState.create({
+        doc: markdownDoc,
+        extensions: [
+          basicSetup,
+          markdownCompartment.of(feelLight),
+          markdown()
+        ]
+      }),
+      parent: markdownParent
+    });
+
     let isDark = false;
 
     const toggle = document.createElement('button');
@@ -123,6 +163,9 @@ describe('cm-theme', function() {
       });
       jsonView.dispatch({
         effects: jsonCompartment.reconfigure(isDark ? feelDark : feelLight)
+      });
+      markdownView.dispatch({
+        effects: markdownCompartment.reconfigure(isDark ? feelDark : feelLight)
       });
     });
 
@@ -145,6 +188,7 @@ describe('cm-theme', function() {
 
     expect(feelView).to.exist;
     expect(jsonView).to.exist;
+    expect(markdownView).to.exist;
     expect(lintRanges.length).to.be.greaterThan(0);
   });
 
