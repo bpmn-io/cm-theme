@@ -55,5 +55,28 @@ export const feelDark = createTheme({
     { tag: t.heading, color: '#e3b341', fontWeight: 'bold' },
     { tag: t.strong, fontWeight: 'bold' },
     { tag: t.emphasis, fontStyle: 'italic' },
+    { tag: t.strikethrough, textDecoration: 'line-through' },
+
+    // Markdown links and escapes
+    { tag: t.link, color: '#89dceb', textDecoration: 'underline' },
+    { tag: t.url, color: '#89dceb' },
+    { tag: t.escape, color: '#89dceb' },
+
+    // Markdown structure (blockquotes, list/heading markers, thematic breaks, metadata)
+    { tag: t.quote, color: '#8b949e' },
+    { tag: t.processingInstruction, color: '#8b949e' },
+    { tag: t.contentSeparator, color: '#8b949e', fontWeight: 'bold' },
+    { tag: t.meta, color: '#8b949e' },
+
+    // diff-style inserted/deleted lines
+    { tag: t.inserted, color: '#aff5b4' },
+    { tag: t.deleted, color: '#f47067' },
+
+    // embedded HTML - tag and attribute names share the heading color
+    //   (heading stays bold to stand apart); the attribute value reads as a string
+    { tag: t.tagName, color: '#e3b341' },
+    { tag: t.attributeName, color: '#e3b341' },
+    { tag: t.angleBracket, color: '#8b949e' },
+    { tag: t.attributeValue, color: '#aff5b4' },
   ]
 });

@@ -55,5 +55,28 @@ export const feelLight = createTheme({
     { tag: t.heading, color: '#953800', fontWeight: 'bold' },
     { tag: t.strong, fontWeight: 'bold' },
     { tag: t.emphasis, fontStyle: 'italic' },
+    { tag: t.strikethrough, textDecoration: 'line-through' },
+
+    // Markdown links and escapes
+    { tag: t.link, color: '#0969da', textDecoration: 'underline' },
+    { tag: t.url, color: '#0969da' },
+    { tag: t.escape, color: '#0969da' },
+
+    // Markdown structure (blockquotes, list/heading markers, thematic breaks, metadata)
+    { tag: t.quote, color: '#69727b' },
+    { tag: t.processingInstruction, color: '#69727b' },
+    { tag: t.contentSeparator, color: '#69727b', fontWeight: 'bold' },
+    { tag: t.meta, color: '#69727b' },
+
+    // diff-style inserted/deleted lines
+    { tag: t.inserted, color: '#1a7f37' },
+    { tag: t.deleted, color: '#a31515' },
+
+    // embedded HTML — tag and attribute names share the heading color
+    //   (heading stays bold to stand apart); the attribute value reads as a string
+    { tag: t.tagName, color: '#953800' },
+    { tag: t.attributeName, color: '#953800' },
+    { tag: t.angleBracket, color: '#69727b' },
+    { tag: t.attributeValue, color: '#1a7f37' },
   ]
 });
