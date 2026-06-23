@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { feel } from 'lang-feel';
 import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
+import { feelersLanguage } from 'feelers/lang';
 
 import { basicSetup } from 'codemirror';
 
@@ -65,6 +66,38 @@ Some text! [yes](./yes.html) include *emphasis* and **bold** font.
 > With nice quote.
 `.trim();
 
+const feelersDoc = `
+# Employees
+
+{{#loop users}}
+## {{name}}
+*Currently {{age}} years old, contact* [@{{twitter}}]({{"https://twitter.com/" + twitter}})
+
+### Skills
+{{#loop skills}}
+- {{this}}
+{{/loop}}
+
+{{/loop}}
+
+# Some conditions
+
+{{#if count(users) > 1}}There are multiple users{{/if}}
+{{#if false}}This should not display{{/if}}
+{{#if true}}This should display{{/if}}
+
+*Some italic text*
+**Some bold text**
+
+# Prices
+
+| Item | Category | Price | Stock |
+| -- | --:| --:| --:|
+{{#loop prices}}
+| {{name}} | {{category}} | {{parent.currencySymbol}}{{price}} | {{stock}} |
+{{/loop}}
+`.trim();
+
 
 describe('cm-theme', function() {
 
@@ -84,6 +117,7 @@ describe('cm-theme', function() {
     const feelCompartment = new Compartment();
     const jsonCompartment = new Compartment();
     const markdownCompartment = new Compartment();
+    const feelersCompartment = new Compartment();
 
     const feelLabel = document.createElement('strong');
     feelLabel.textContent = 'FEEL';
@@ -104,7 +138,14 @@ describe('cm-theme', function() {
     markdownLabel.setAttribute('style', 'display: block; margin-bottom: 4px');
 
     const markdownParent = document.createElement('div');
-    markdownParent.setAttribute('style', 'border: solid 1px #CCC');
+    markdownParent.setAttribute('style', 'border: solid 1px #CCC; margin-bottom: 16px');
+
+    const feelersLabel = document.createElement('strong');
+    feelersLabel.textContent = 'Feelers';
+    feelersLabel.setAttribute('style', 'display: block; margin-bottom: 4px');
+
+    const feelersParent = document.createElement('div');
+    feelersParent.setAttribute('style', 'border: solid 1px #CCC; margin-bottom: 16px');
 
     container.appendChild(feelLabel);
     container.appendChild(feelParent);
@@ -112,6 +153,8 @@ describe('cm-theme', function() {
     container.appendChild(jsonParent);
     container.appendChild(markdownLabel);
     container.appendChild(markdownParent);
+    container.appendChild(feelersLabel);
+    container.appendChild(feelersParent);
 
     const feelView = new EditorView({
       state: EditorState.create({
@@ -149,6 +192,18 @@ describe('cm-theme', function() {
       parent: markdownParent
     });
 
+    const feelersView = new EditorView({
+      state: EditorState.create({
+        doc: feelersDoc,
+        extensions: [
+          basicSetup,
+          feelersCompartment.of(feelLight),
+          feelersLanguage()
+        ]
+      }),
+      parent: feelersParent
+    });
+
     let isDark = false;
 
     const toggle = document.createElement('button');
@@ -166,6 +221,9 @@ describe('cm-theme', function() {
       });
       markdownView.dispatch({
         effects: markdownCompartment.reconfigure(isDark ? feelDark : feelLight)
+      });
+      feelersView.dispatch({
+        effects: feelersCompartment.reconfigure(isDark ? feelDark : feelLight)
       });
     });
 
@@ -189,6 +247,7 @@ describe('cm-theme', function() {
     expect(feelView).to.exist;
     expect(jsonView).to.exist;
     expect(markdownView).to.exist;
+    expect(feelersView).to.exist;
     expect(lintRanges.length).to.be.greaterThan(0);
   });
 
