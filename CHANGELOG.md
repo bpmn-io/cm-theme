@@ -8,6 +8,7 @@ ___Note:__ Yet to be released changes appear here._
 
 - `FIX`: restore feelers syntax highlighting ([#16](https://github.com/bpmn-io/cm-theme/pull/16))
 - `FIX`: restore lint range squiggle underlines ([#16](https://github.com/bpmn-io/cm-theme/pull/16))
+- `FIX`: restore markdown syntax highlighting ([#16](https://github.com/bpmn-io/cm-theme/pull/16))
 
 ## 0.2.0
 
