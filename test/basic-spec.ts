@@ -3,6 +3,8 @@ import { expect } from 'chai';
 import { feel } from 'lang-feel';
 import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
+import { feelersLanguage } from 'feelers/lang';
+import { parser as markdownParser } from '@lezer/markdown';
 
 import { basicSetup } from 'codemirror';
 
@@ -65,6 +67,17 @@ Some text! [yes](./yes.html) include *emphasis* and **bold** font.
 > With nice quote.
 `.trim();
 
+const feelersDoc = `# {{user}}'s profile
+
+{{#if count(hobbies) > 0}}
+**Hobbies:**
+{{#loop hobbies}}
+- {{this}}
+{{/loop}}
+{{/if}}
+
+Currently *{{age}}* years old.`;
+
 
 describe('cm-theme', function() {
 
@@ -73,7 +86,7 @@ describe('cm-theme', function() {
   beforeEach(function() {
 
     container = document.createElement('div');
-    container.setAttribute('style', 'width: 600px');
+    container.setAttribute('style', 'display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, max(400px, calc(50% - 8px))), 1fr)); gap: 16px; max-width: 1300px');
 
     document.body.appendChild(container);
   });
@@ -84,34 +97,33 @@ describe('cm-theme', function() {
     const feelCompartment = new Compartment();
     const jsonCompartment = new Compartment();
     const markdownCompartment = new Compartment();
+    const feelersCompartment = new Compartment();
 
-    const feelLabel = document.createElement('strong');
-    feelLabel.textContent = 'FEEL';
-    feelLabel.setAttribute('style', 'display: block; margin-bottom: 4px');
+    const makeCell = (labelText: string) => {
+      const label = document.createElement('strong');
+      label.textContent = labelText;
+      label.setAttribute('style', 'display: block; margin-bottom: 4px');
 
-    const feelParent = document.createElement('div');
-    feelParent.setAttribute('style', 'border: solid 1px #CCC; margin-bottom: 16px');
+      const parent = document.createElement('div');
+      parent.setAttribute('style', 'border: solid 1px #CCC');
 
-    const jsonLabel = document.createElement('strong');
-    jsonLabel.textContent = 'JSON';
-    jsonLabel.setAttribute('style', 'display: block; margin-bottom: 4px');
+      const cell = document.createElement('div');
+      cell.appendChild(label);
+      cell.appendChild(parent);
 
-    const jsonParent = document.createElement('div');
-    jsonParent.setAttribute('style', 'border: solid 1px #CCC; margin-bottom: 16px');
+      return { cell, parent };
+    };
 
-    const markdownLabel = document.createElement('strong');
-    markdownLabel.textContent = 'MARKDOWN';
-    markdownLabel.setAttribute('style', 'display: block; margin-bottom: 4px');
+    const { cell: feelCell, parent: feelParent } = makeCell('FEEL');
+    const { cell: feelersCell, parent: feelersParent } = makeCell('FEELERS');
+    const { cell: jsonCell, parent: jsonParent } = makeCell('JSON');
+    const { cell: markdownCell, parent: markdownParent } = makeCell('MARKDOWN');
 
-    const markdownParent = document.createElement('div');
-    markdownParent.setAttribute('style', 'border: solid 1px #CCC');
-
-    container.appendChild(feelLabel);
-    container.appendChild(feelParent);
-    container.appendChild(jsonLabel);
-    container.appendChild(jsonParent);
-    container.appendChild(markdownLabel);
-    container.appendChild(markdownParent);
+    // FEEL | FEELERS over JSON | MARKDOWN
+    container.appendChild(feelCell);
+    container.appendChild(feelersCell);
+    container.appendChild(jsonCell);
+    container.appendChild(markdownCell);
 
     const feelView = new EditorView({
       state: EditorState.create({
@@ -124,6 +136,7 @@ describe('cm-theme', function() {
       }),
       parent: feelParent
     });
+    feelView.dom.style.minHeight = '300px';
 
     const jsonView = new EditorView({
       state: EditorState.create({
@@ -136,6 +149,7 @@ describe('cm-theme', function() {
       }),
       parent: jsonParent
     });
+    jsonView.dom.style.minHeight = '415px';
 
     const markdownView = new EditorView({
       state: EditorState.create({
@@ -148,6 +162,20 @@ describe('cm-theme', function() {
       }),
       parent: markdownParent
     });
+    markdownView.dom.style.minHeight = '415px';
+
+    const feelersView = new EditorView({
+      state: EditorState.create({
+        doc: feelersDoc,
+        extensions: [
+          basicSetup,
+          feelersCompartment.of(feelLight),
+          feelersLanguage(markdownParser)
+        ]
+      }),
+      parent: feelersParent
+    });
+    feelersView.dom.style.minHeight = '300px';
 
     let isDark = false;
 
@@ -166,6 +194,9 @@ describe('cm-theme', function() {
       });
       markdownView.dispatch({
         effects: markdownCompartment.reconfigure(isDark ? feelDark : feelLight)
+      });
+      feelersView.dispatch({
+        effects: feelersCompartment.reconfigure(isDark ? feelDark : feelLight)
       });
     });
 
@@ -189,7 +220,8 @@ describe('cm-theme', function() {
     expect(feelView).to.exist;
     expect(jsonView).to.exist;
     expect(markdownView).to.exist;
-    expect(lintRanges.length).to.be.greaterThan(0);
+    expect(feelersView).to.exist;
+    expect(lintRanges.length).to.equal(2);
   });
 
 });
