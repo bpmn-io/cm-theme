@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { feel } from 'lang-feel';
 import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
-import { feelersLanguage } from 'feelers/lang';
+import { feelersLanguage } from '@bpmn-io/lang-feelers';
 import { parser as markdownParser } from '@lezer/markdown';
 
 import { basicSetup } from 'codemirror';
