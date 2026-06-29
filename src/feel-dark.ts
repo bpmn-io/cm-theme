@@ -4,7 +4,6 @@ import createTheme from './create-theme.js';
 export const feelDark = createTheme({
   variant: 'dark',
   settings: {
-    background: '#1c2128',
     foreground: '#adbac7',
     warning: '#fff890',
     error: '#ff0000',

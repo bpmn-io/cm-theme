@@ -6,6 +6,9 @@ import { EditorView } from '@codemirror/view';
 
 import { feelLight, feelDark } from '../src/index';
 
+const lightBackground = EditorView.theme({ '&': { backgroundColor: '#ffffff' } });
+const darkBackground = EditorView.theme({ '&': { backgroundColor: '#1c2128' } }, { dark: true });
+
 const feelDoc = `{
   add: function(fruit, vegetable) [ fruit, vegetable ],
   woo: every a in b satisfies a > b,
@@ -42,7 +45,7 @@ const feelView = new EditorView({
     doc: feelDoc,
     extensions: [
       basicSetup,
-      feelCompartment.of(feelLight),
+      feelCompartment.of([ feelLight, lightBackground ]),
       feel({ dialect: 'expression' })
     ]
   }),
@@ -54,7 +57,7 @@ const jsonView = new EditorView({
     doc: jsonDoc,
     extensions: [
       basicSetup,
-      jsonCompartment.of(feelLight),
+      jsonCompartment.of([ feelLight, lightBackground ]),
       json()
     ]
   }),
@@ -72,6 +75,7 @@ toggle.addEventListener('click', () => {
   document.body.style.color = isDark ? '#ccc' : '';
 
   const theme = isDark ? feelDark : feelLight;
-  feelView.dispatch({ effects: feelCompartment.reconfigure(theme) });
-  jsonView.dispatch({ effects: jsonCompartment.reconfigure(theme) });
+  const background = isDark ? darkBackground : lightBackground;
+  feelView.dispatch({ effects: feelCompartment.reconfigure([ theme, background ]) });
+  jsonView.dispatch({ effects: jsonCompartment.reconfigure([ theme, background ]) });
 });

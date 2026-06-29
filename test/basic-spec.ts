@@ -14,6 +14,9 @@ import { setDiagnostics } from '@codemirror/lint';
 
 import { feelLight, feelDark } from '@bpmn-io/cm-theme';
 
+const lightBackground = EditorView.theme({ '&': { backgroundColor: '#ffffff' } });
+const darkBackground = EditorView.theme({ '&': { backgroundColor: '#1c2128' } }, { dark: true });
+
 
 type EnvWindow = {
   __env__?: {
@@ -130,7 +133,7 @@ describe('cm-theme', function() {
         doc: feelDoc,
         extensions: [
           basicSetup,
-          feelCompartment.of(feelLight),
+          feelCompartment.of([ feelLight, lightBackground ]),
           feel({ dialect: 'expression' })
         ]
       }),
@@ -143,7 +146,7 @@ describe('cm-theme', function() {
         doc: jsonDoc,
         extensions: [
           basicSetup,
-          jsonCompartment.of(feelLight),
+          jsonCompartment.of([ feelLight, lightBackground ]),
           json()
         ]
       }),
@@ -156,7 +159,7 @@ describe('cm-theme', function() {
         doc: markdownDoc,
         extensions: [
           basicSetup,
-          markdownCompartment.of(feelLight),
+          markdownCompartment.of([ feelLight, lightBackground ]),
           markdown()
         ]
       }),
@@ -169,7 +172,7 @@ describe('cm-theme', function() {
         doc: feelersDoc,
         extensions: [
           basicSetup,
-          feelersCompartment.of(feelLight),
+          feelersCompartment.of([ feelLight, lightBackground ]),
           feelersLanguage(markdownParser)
         ]
       }),
@@ -186,17 +189,19 @@ describe('cm-theme', function() {
       isDark = !isDark;
 
       toggle.textContent = isDark ? 'Toggle light' : 'Toggle dark';
+      const theme = isDark ? feelDark : feelLight;
+      const background = isDark ? darkBackground : lightBackground;
       feelView.dispatch({
-        effects: feelCompartment.reconfigure(isDark ? feelDark : feelLight)
+        effects: feelCompartment.reconfigure([ theme, background ])
       });
       jsonView.dispatch({
-        effects: jsonCompartment.reconfigure(isDark ? feelDark : feelLight)
+        effects: jsonCompartment.reconfigure([ theme, background ])
       });
       markdownView.dispatch({
-        effects: markdownCompartment.reconfigure(isDark ? feelDark : feelLight)
+        effects: markdownCompartment.reconfigure([ theme, background ])
       });
       feelersView.dispatch({
-        effects: feelersCompartment.reconfigure(isDark ? feelDark : feelLight)
+        effects: feelersCompartment.reconfigure([ theme, background ])
       });
     });
 
