@@ -4,7 +4,6 @@ import createTheme from './create-theme.js';
 export const feelLight = createTheme({
   variant: 'light',
   settings: {
-    background: '#ffffff',
     foreground: '#24292f',
     warning: '#debd71',
     error: '#9f1c15',

@@ -4,7 +4,6 @@ import { HighlightStyle, syntaxHighlighting, TagStyle } from '@codemirror/langua
 type Variant = 'dark' | 'light';
 
 type Settings = {
-  background: string;
   foreground: string;
   warning: string;
   error: string;
@@ -22,7 +21,6 @@ const createTheme = ({ variant, settings, styles } : {
 }) => {
   const theme = EditorView.theme({
     '&': {
-      backgroundColor: settings.background,
       color: settings.foreground,
     },
 
