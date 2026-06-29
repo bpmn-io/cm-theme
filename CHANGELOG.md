@@ -6,6 +6,8 @@ All notable changes to [@bpmn-io/cm-theme](https://github.com/bpmn-io/cm-theme) 
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.2.1
+
 - `FIX`: restore feelers syntax highlighting ([#16](https://github.com/bpmn-io/cm-theme/pull/16))
 - `FIX`: restore lint range squiggle underlines ([#16](https://github.com/bpmn-io/cm-theme/pull/16))
 - `FIX`: restore markdown syntax highlighting ([#16](https://github.com/bpmn-io/cm-theme/pull/16))
